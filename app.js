@@ -8,7 +8,7 @@ const connectToDataBase = require('./database/connect');
 const pagesRouter = require('./routes/pages');
 const app = express();
 
-const PORT = 3003;
+const PORT = 3001;
 connectToDataBase();
 app.use(
     cors,
