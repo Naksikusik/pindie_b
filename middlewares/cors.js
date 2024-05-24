@@ -6,7 +6,7 @@ const allowedCors = [
   "http://localhost:3002",
   "http://localhost:3003",
   "http://localhost:3004",
-  "pindie-frontik.nomoredomainswork.ru",
+  "https://pindie-frontik.nomoredomainswork.ru",
 ]
 
 function cors(req, res, next) {
