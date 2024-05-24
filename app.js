@@ -21,4 +21,6 @@ app.use(
 
 app.listen(PORT, () => {
     console.log(`Сервер запущен http://localhost:${PORT}`)
-}); 
+});
+
+process.once("SIGUSR2", () => server.close(err => process.kill(process.pid, "SIGUSR2")));
