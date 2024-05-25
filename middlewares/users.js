@@ -40,9 +40,10 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     req.user = await user.findByIdAndDelete(req.params.id);
+    next();
   } catch (error) {
     res.setHeader('Content-Type', 'application/json');
-    res.status(400).send(JSON.stringify({ message: 'Ошибка удаления данных пользователя' }));
+    res.status(400).send(JSON.stringify({ message: 'Ошибка удаления пользователя' }));
   }
 };
 
@@ -92,6 +93,19 @@ const checkIsUserExists = async (req, res, next) => {
   }
 };
 
+const checkIsEmailUserExists = async (req, res, next) => {
+  const isInArray = req.usersArray.find((user) => {
+    return req.body.email === user.email;
+  });
+  if (isInArray) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Пользователь с таким email уже существует!" }));
+  } else {
+    next();
+  }
+};
+
+
 module.exports = {
   findAllUsers,
   findUserById,
@@ -101,5 +115,6 @@ module.exports = {
   checkEmptyNameAndEmail,
   checkEmptyNameAndEmailAndPassword,
   checkIsUserExists,
-  hashPassword
+  hashPassword,
+  checkIsEmailUserExists
 };
